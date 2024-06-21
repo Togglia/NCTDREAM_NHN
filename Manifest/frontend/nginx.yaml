@@ -37,7 +37,7 @@ spec:
                   app: nginx
               topologyKey: kubernetes.io/hostname
       containers:
-      - image: 7b8f13c7-kr1-registry.container.nhncloud.com/nct-web/nct-web:v1.0
+      - image: keviness0720/nct-web:v1.0
         name: nginx
         ports:
         - containerPort: 80
