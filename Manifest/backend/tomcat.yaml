@@ -41,17 +41,3 @@ spec:
   clusterIP: 10.254.0.20
 status:
   loadBalancer: {}
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: tomcat-hpa
-  namespace: back-end
-spec:
-  maxReplicas: 10
-  minReplicas: 2
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: tomcat
-  targetCPUUtilizationPercentage: 50
