@@ -39,7 +39,7 @@ spec:
             app: tomcat
       containers:
       - name: tomcat
-        image: 7b8f13c7-kr1-registry.container.nhncloud.com/nct-was:v1.0
+        image: 7b8f13c7-kr1-registry.container.nhncloud.com/nct-was/nct-was:v1.0
         ports:
         - containerPort: 8080
         livenessProbe:
