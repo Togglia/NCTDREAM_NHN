@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: tomcat
-        image: keviness0720/test2-was:v1.0
+        image: keviness0720/test05-was:v1.0
         ports:
         - containerPort: 4000
 ---
