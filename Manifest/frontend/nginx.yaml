@@ -16,7 +16,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: keviness0720/test05-web:v1.0
+      - image: keviness0720/test07-web:v1.0
         name: nginx
         ports:
         - containerPort: 80
