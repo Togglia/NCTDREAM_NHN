@@ -6,7 +6,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -16,7 +16,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: keviness0720/nct-web:v1.1
+      - image: keviness0720/test1-web:v1.0
         name: nginx
         ports:
         - containerPort: 80
@@ -24,7 +24,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
   labels:
     app: nginx
   name: nginx-svc
