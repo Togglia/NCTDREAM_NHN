@@ -36,7 +36,7 @@ spec:
     targetPort: 4000
   selector:
     app: tomcat
-  type: ClusterIP
+  type: LoadBalancer
   clusterIP: 10.254.0.20
 status:
   loadBalancer: {}
