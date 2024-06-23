@@ -16,7 +16,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: keviness0720/test08-web:v1.0
+      - image: 7b8f13c7-kr1-registry.container.nhncloud.com/nct-web/net-web:v2.0
         name: nginx
         ports:
         - containerPort: 80
