@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY cloud-0.0.2.jar /app/cloud-0.0.2.jar
 
-EXPOSE 80801
+EXPOSE 8080
 
 CMD ["java", "-jar", "/app/cloud-0.0.2.jar"]
 
