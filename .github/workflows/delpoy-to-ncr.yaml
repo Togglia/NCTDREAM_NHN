@@ -3,7 +3,7 @@ name: Build and Push Docker Image to NHN Cloud NCR
 on:
   push:
     branches:
-      - main
+      - was
 
 jobs:
   build-and-push:
