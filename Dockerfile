@@ -1,9 +1,10 @@
-FROM nginx:alpine
+FROM eclipse-temurin:17-jre-jammy
 
-COPY /build /usr/share/nginx/html/build
+WORKDIR /app
 
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY cloud-0.0.2.jar /app/cloud-0.0.2.jar
 
-EXPOSE 80
+EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["java", "-jar", "/app/cloud-0.0.2.jar"]
+
