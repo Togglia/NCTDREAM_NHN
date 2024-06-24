@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: tomcat
-        image: 7b8f13c7-kr1-registry.container.nhncloud.com/nct-was/nct-was:v2.0
+        image: 7b8f13c7-kr1-registry.container.nhncloud.com/nct-was/nct-was:18
         ports:
         - containerPort: 4000
       imagePullSecrets:
@@ -40,5 +40,6 @@ spec:
     app: tomcat
   type: LoadBalancer
   clusterIP: 10.254.0.20
+  loadBalancerIP: 133.186.209.213
 status:
   loadBalancer: {}
