@@ -26,49 +26,11 @@ jobs:
           -u "${{ sNCRets.NHN_ACCESS_KEY_ID }}" \
           --password-stdin
 
-     # 네 번째 단계: 현재 NCR에서 최신 버전을 가져옴
-    - name: Get current version from NCR
-        id: get-current-version
-        run: |
-          echo "::set-output name=version::$(nhn ncr describe-images --repository-name ${{ matrix.repo_name }} --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text || echo '')" 
-          //NCR저장소에서의 'version'이라는 출력 변수 설정
+    - name: Build Docker image
+      run: docker build -t 7b8f13c7-kr1-registry.container.nhncloud.com/nct-web/nct-web:${{ github.run_number }} .
 
-    # 다섯 번째 단계: VERSION 파일에서 버전을 가져옴
-      - name: Get version from VERSION file
-        id: get-version
-        run: |
-          echo "::set-output name=version::$(cat Dockerfile/${{ matrix.repo_name }}/VERSION)" //VERSION file에서의 'version'이라는 출력 변수 설정
+    - name: Push Docker image to NHN Cloud NCR
+      run: docker push 7b8f13c7-kr1-registry.container.nhncloud.com/nct-web/nct-web:${{ github.run_number }}
 
-    # 여섯 번째 단계: NCR의 버전과 VERSION 파일의 버전을 비교
-      - name: Compare versions
-        id: compare-versions
-        run: |
-          if [ "${{ steps.get-current-version.outputs.version }}" != "${{ steps.get-version.outputs.version }}" ]; then //현재 NCR에서 최신 버전과 VERSION 파일에서 버전이 다르면
-            echo "Versions are different. Proceeding with deployment"     //"Versions are different. Proceeding with deployment"라는 메시지를 출력                                  
-            echo "::set-output name=changed::true"                        //'changed' 출력 값을 true로 설정하여 버전이 변경되었음을 표시
-          else                                                            //현재 NCR에서 최신 버전과 VERSION 파일에서 버전이 다르지 않다면                                                                 
-            echo "Versions are the same. Skipping deployment."            //"Versions are the same. Skipping deployment."라는 메시지를 출력
-            exit 0                                                        //정상 종료 상태
-          fi
-
-    # 일곱 번째 단계: NCR에 이미지를 빌드하고 태그를 붙여 푸시(버전이 변경된 경우에만 실행됨)
-      - name: Build, tag, and push image to NHN NCR
-        id: build-image
-        if: steps.compare-versions.outputs.changed == 'true'              //'changed' 출력 값이 true이면 실행
-        env:                                                              
-          NCR_REGISTRY: ${{ steps.login-ncr.outputs.registry }}           //NCR_REGISTRY 환경 변수를 'login-NCR' step의 출력 중 'registry' 값으로 설정
-          NCR_REPOSITORY: ${{ matrix.repo_name }}                         //NCR_REPOSITORY 환경 변수를 매트릭스 전략에서 정의된 'repo_name' 값으로 설정
-          IMAGE_TAG: ${{ steps.get-version.outputs.version }}             //IMAGE_TAG 환경 변수를 'get-version' step의 출력 중 'version' 값으로 정
-        run: |
-          docker build -t $NCR_REGISTRY/$NCR_REPOSITORY:$IMAGE_TAG -f Dockerfile/${{ matrix.repo_name }}/Dockerfile Dockerfile/${{ matrix.repo_name }}  //Dockerfile/"NHN NCR 레포지터리 이름"이라는 디렉토리에 있는 Dockerfile을 빌드
-          docker push $NCR_REGISTRY/$NCR_REPOSITORY:$IMAGE_TAG                      //빌드된 Docker 이미지를 NHN NCR 저장소에 푸시
-          echo "::set-output name=image::$NCR_REGISTRY/$NCR_REPOSITORY:$IMAGE_TAG"  //'image'라는 출력 변수를 푸시된 이미지의 전체 경로로 설정
-
-    # - name: Build Docker image
-    #   run: docker build -t 7b8f13c7-kr1-registry.container.nhncloud.com/nct-web/nct-web:${{ github.run_number }} .
-
-    # - name: Push Docker image to NHN Cloud NCR
-    #   run: docker push 7b8f13c7-kr1-registry.container.nhncloud.com/nct-web/nct-web:${{ github.run_number }}
-
-    # - name: Log out from NHN Cloud NCR
-    #   run: docker logout 7b8f13c7-kr1-registry.container.nhncloud.com
+    - name: Log out from NHN Cloud NCR
+      run: docker logout 7b8f13c7-kr1-registry.container.nhncloud.com
