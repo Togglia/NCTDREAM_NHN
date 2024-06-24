@@ -5,11 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'Dockerfile'
-
-    strategy:
-      matrix:
-        repo_name: [nct-web, nct-was]
+      - 'Dockerfile/'
   
 jobs:
   build-and-push:
