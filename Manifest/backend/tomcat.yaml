@@ -40,6 +40,5 @@ spec:
     app: tomcat
   type: LoadBalancer
   clusterIP: 10.254.0.20
-  loadBalancerIP: 133.186.209.213
 status:
   loadBalancer: {}
