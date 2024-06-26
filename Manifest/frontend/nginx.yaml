@@ -22,13 +22,7 @@ spec:
         - containerPort: 80
       imagePullSecrets:
       - name: registry-credential-front
-        resources:
-          requests:
-            memory: 100Mi
-            cpu: 60m
-          limits:
-            memory: 100Mi
-            cpu: 60m
+
 ---
 apiVersion: v1
 kind: Service
