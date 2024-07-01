@@ -20,10 +20,10 @@ jobs:
           --password-stdin
 
     - name: Build Docker image
-      run: docker build -t 7b8f13c7-kr1-registry.container.nhncloud.com/nct-web/nct-web:${{ github.run_number }} .
+      run: docker build -t 2ea45060-kr1-registry.container.nhncloud.com/nct-web/nct-web:${{ github.run_number }} .
 
     - name: Push Docker image to NHN Cloud NCR
-      run: docker push 7b8f13c7-kr1-registry.container.nhncloud.com/nct-web/nct-web:${{ github.run_number }}
+      run: docker push 2ea45060-kr1-registry.container.nhncloud.com/nct-web/nct-web:${{ github.run_number }}
 
     - name: Log out from NHN Cloud NCR
-      run: docker logout 7b8f13c7-kr1-registry.container.nhncloud.com
+      run: docker logout 2ea45060-kr1-registry.container.nhncloud.com/nct-web
