@@ -1,4 +1,4 @@
-FROM nginx:1.14
+FROM nginx
 
 COPY /build /usr/share/nginx/html/build
 
