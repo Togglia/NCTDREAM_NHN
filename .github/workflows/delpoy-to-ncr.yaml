@@ -15,7 +15,7 @@ jobs:
 
     - name: Log in to NHN Cloud NCR
       run: |
-        echo "${{ secrets.NHN_SECRET_ACCESS_KEY }}" | docker login 7b8f13c7-kr1-registry.container.nhncloud.com/nct-web \
+        echo "${{ secrets.NHN_SECRET_ACCESS_KEY }}" | docker login 2ea45060-kr1-registry.container.nhncloud.com/nct-web \
           -u "${{ secrets.NHN_ACCESS_KEY_ID }}" \
           --password-stdin
 
