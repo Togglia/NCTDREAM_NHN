@@ -1,9 +1,13 @@
-FROM nginx:1.14-alpine
+FROM ubuntu:22.04
 
-COPY /build /usr/share/nginx/html/build
+# Install OpenJDK 17 JDK
+RUN apt-get update && apt-get install -y openjdk-17-jdk && rm -rf /var/lib/apt/lists/*
 
-COPY default.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-EXPOSE 80
+# Copy the JAR file to the container
+COPY cloud-0.0.2.jar /app/cloud-0.0.2.jar
 
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8080
+
+CMD ["java", "-jar", "/app/cloud-0.0.2.jar"]
